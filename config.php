@@ -18,18 +18,47 @@ $i = 0;
 * 
 * @see more details at http://rockmongo.com/wiki/configuration?lang=en_us
 */
-$MONGO["servers"][$i]["mongo_name"] = "Localhost";//mongo server name
-//$MONGO["servers"][$i]["mongo_sock"] = "/var/run/mongo.sock";//mongo socket path (instead of host and port)
-$MONGO["servers"][$i]["mongo_host"] = "127.0.0.1";//mongo host
-$MONGO["servers"][$i]["mongo_port"] = "27017";//mongo port
-$MONGO["servers"][$i]["mongo_timeout"] = 0;//mongo connection timeout
-//$MONGO["servers"][$i]["mongo_db"] = "MONGO_DATABASE";//default mongo db to connect, works only if mongo_auth=false
-//$MONGO["servers"][$i]["mongo_user"] = "MONGO_USERNAME";//mongo authentication user name, works only if mongo_auth=false
-//$MONGO["servers"][$i]["mongo_pass"] = "MONGO_PASSWORD";//mongo authentication password, works only if mongo_auth=false
-$MONGO["servers"][$i]["mongo_auth"] = false;//enable mongo authentication?
+$mongo_name = getenv("mongo_name");
+if(!$mongo_name) $mongo_name = "Localhost";
+$MONGO["servers"][$i]["mongo_name"] = $mongo_name;//mongo server name
 
-$MONGO["servers"][$i]["control_auth"] = true;//enable control users, works only if mongo_auth=false
-$MONGO["servers"][$i]["control_users"]["admin"] = "admin";//one of control users ["USERNAME"]=PASSWORD, works only if mongo_auth=false
+//$MONGO["servers"][$i]["mongo_sock"] = "/var/run/mongo.sock";//mongo socket path (instead of host and port)
+
+$mongo_host = getenv("mongo_host");
+if(!$mongo_host) $mongo_host = "127.0.0.1";
+$MONGO["servers"][$i]["mongo_host"] = $mongo_host;//mongo host
+
+$mongo_port = getenv("mongo_port");
+if(!$mongo_port) $mongo_port = "27017";
+$MONGO["servers"][$i]["mongo_port"] = $mongo_port;//mongo port
+
+$mongo_timeout = getenv("mongo_timeout");
+if(!$mongo_timeout) $mongo_timeout = 0; 
+$MONGO["servers"][$i]["mongo_timeout"] = $mongo_timeout;//mongo connection timeout
+
+$mongo_db = getenv("mongo_db");
+if(!$mongo_db) $mongo_db = "MONGO_DATABASE";
+$MONGO["servers"][$i]["mongo_db"] = $mongo_db;//default mongo db to connect, works only if mongo_auth=false
+
+$mongo_user = getenv("mongo_user");
+if(!$mongo_user) $mongo_user = "MONGO_USERNAME";
+$MONGO["servers"][$i]["mongo_user"] = $mongo_user;//mongo authentication user name, works only if mongo_auth=false
+
+$mongo_pass = getenv("mongo_pass");
+if(!$mongo_pass) $mongo_pass = "MONGO_PASSWORD";
+$MONGO["servers"][$i]["mongo_pass"] = $mongo_pass;//mongo authentication password, works only if mongo_auth=false
+
+$mongo_auth = getenv("mongo_auth");
+$mongo_auth = ($mongo_auth === "true");
+$MONGO["servers"][$i]["mongo_auth"] = $mongo_auth;//enable mongo authentication?
+
+$control_auth = getenv("control_auth");
+$control_auth = ($control_auth === "true");
+$MONGO["servers"][$i]["control_auth"] = $control_auth;//enable control users, works only if mongo_auth=false
+
+$control_users_password = getenv("control_users_password");
+if(!$control_users_password) $control_users_password = "admin";
+$MONGO["servers"][$i]["control_users"]["admin"] = $control_users_password;//one of control users ["USERNAME"]=PASSWORD, works only if mongo_auth=false
 
 $MONGO["servers"][$i]["ui_only_dbs"] = "";//databases to display
 $MONGO["servers"][$i]["ui_hide_dbs"] = "";//databases to hide
