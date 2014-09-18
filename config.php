@@ -37,15 +37,15 @@ if(!$mongo_timeout) $mongo_timeout = 0;
 $MONGO["servers"][$i]["mongo_timeout"] = $mongo_timeout;//mongo connection timeout
 
 $mongo_db = getenv("mongo_db");
-if(!$mongo_db) $mongo_db = "MONGO_DATABASE";
+//if(!$mongo_db) $mongo_db = "MONGO_DATABASE";
 $MONGO["servers"][$i]["mongo_db"] = $mongo_db;//default mongo db to connect, works only if mongo_auth=false
 
 $mongo_user = getenv("mongo_user");
-if(!$mongo_user) $mongo_user = "MONGO_USERNAME";
+//if(!$mongo_user) $mongo_user = "MONGO_USERNAME";
 $MONGO["servers"][$i]["mongo_user"] = $mongo_user;//mongo authentication user name, works only if mongo_auth=false
 
 $mongo_pass = getenv("mongo_pass");
-if(!$mongo_pass) $mongo_pass = "MONGO_PASSWORD";
+//if(!$mongo_pass) $mongo_pass = "MONGO_PASSWORD";
 $MONGO["servers"][$i]["mongo_pass"] = $mongo_pass;//mongo authentication password, works only if mongo_auth=false
 
 $mongo_auth = getenv("mongo_auth");
